@@ -6,6 +6,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.epoxy.EpoxyRecyclerView
 import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
@@ -14,20 +15,17 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
 
+    private val epoxyController = CharacterDetailsEpoxyController()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val nameTextView = findViewById<TextView>(R.id.nameTextView)
-        val headerImageView = findViewById<ImageView>(R.id.headerImageView)
-        val genderImageView = findViewById<ImageView>(R.id.genderImageView)
-        val aliveTextView = findViewById<TextView>(R.id.aliveTextView)
-        val originTextView = findViewById<TextView>(R.id.originTextView)
-        val speciesTextView = findViewById<TextView>(R.id.speciesTextView)
-
-
-        viewModel.refreshCharacter(54)
         viewModel.characterByIdLiveData.observe(this) { response ->
+
+            // updating data to epoxy controller
+            epoxyController.characterResponse = response
+
             if (response == null) {
                 Toast.makeText(
                     this@MainActivity,
@@ -36,21 +34,10 @@ class MainActivity : AppCompatActivity() {
                 ).show()
                 return@observe
             }
-            nameTextView.text = response.name
-            aliveTextView.text = response.status
-            speciesTextView.text = response.species
-            originTextView.text = response.origin.name
-            response.image.let { imageUrl ->
-                Picasso.get().load(imageUrl).into(headerImageView)
-            }
-            response.gender.let { gender ->
-                if (gender.equals("male", ignoreCase = true)) {
-                    genderImageView.setImageResource(R.drawable.ic_male_24)
-                } else {
-                    genderImageView.setImageResource(R.drawable.ic_female_24)
-                }
-            }
-
         }
+        viewModel.refreshCharacter(54)
+
+        val epoxyRecyclerView = findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
+        epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
     }
 }
