@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/headerImageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic[5]" />
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nameTextView"
@@ -28,7 +17,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/genderImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerImageView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Morty Smith" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -52,15 +41,36 @@
         tools:srcCompat="@drawable/ic_male_24" />
 
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="?colorPrimary"
-        app:layout_constraintEnd_toEndOf="@id/genderImageView"
-        app:layout_constraintStart_toStartOf="@id/aliveTextView"
-        app:layout_constraintTop_toBottomOf="@id/aliveTextView" />
+<!--    <View-->
+<!--        android:id="@+id/divider"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:background="?colorPrimary"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/genderImageView"-->
+<!--        app:layout_constraintStart_toStartOf="@id/aliveTextView"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/aliveTextView" />-->
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aliveTextView">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/headerImageView"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic[5]" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -72,8 +82,8 @@
         android:textColor="?attr/colorOnBackground"
         android:textSize="24sp"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@id/divider"
-        app:layout_constraintTop_toBottomOf="@id/divider" />
+        app:layout_constraintStart_toStartOf="@id/aliveTextView"
+        app:layout_constraintTop_toBottomOf="@id/cardView" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/originTextView"

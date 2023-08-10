@@ -1,4 +1,4 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.network.response
 
 data class GetCharacterByIdResponse(
     val created: String,
