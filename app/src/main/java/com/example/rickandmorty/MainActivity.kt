@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.characterByIdLiveData.observe(this) { response ->
+        viewModel.characterByIdLiveData.observe(this) { character ->
 
             // updating data to epoxy controller
-            epoxyController.characterResponse = response
+            epoxyController.character = character
 
-            if (response == null) {
+            if (character == null) {
                 Toast.makeText(
                     this@MainActivity,
                     "Unsuccessful network call",
