@@ -2,12 +2,18 @@ package com.example.rickandmorty.domain.mappers
 
 import com.example.rickandmorty.domain.models.Character
 import com.example.rickandmorty.network.response.GetCharacterByIdResponse
+import com.example.rickandmorty.network.response.GetEpisodeByIdResponse
 
 object CharacterMapper {
 
-    fun buildFrom(response: GetCharacterByIdResponse): Character {
+    fun buildFrom(
+        response: GetCharacterByIdResponse,
+        episodes: List<GetEpisodeByIdResponse>
+    ): Character {
         return Character(
-            episodesList = emptyList(),
+            episodesList = episodes.map {
+                EpisodeMapper.buildFrom(it)
+            },
             gender = response.gender,
             id = response.id,
             image = response.image,

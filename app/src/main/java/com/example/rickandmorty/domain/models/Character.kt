@@ -21,10 +21,4 @@ data class Character(
         val url: String
     )
 
-    data class Episode(
-        val id: Int,
-        val name: String,
-        val airDate: String,
-        val episode: String
-    )
 }
