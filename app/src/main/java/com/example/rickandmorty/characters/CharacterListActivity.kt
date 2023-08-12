@@ -18,6 +18,7 @@ class CharacterListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
 
+        // connecting page list live data with epoxy controller to show in the UI
         viewModel.charactersPagedListLiveData.observe(this) {pagedList ->
             epoxyController.submitList(pagedList)
         }
