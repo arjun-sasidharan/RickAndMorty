@@ -1,13 +1,10 @@
 package com.example.rickandmorty
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
         }
-        viewModel.refreshCharacter(54)
+        viewModel.refreshCharacter(intent.getIntExtra(Constants.INTENT_EXTRA_CHARACTER_ID, 1))
 
         val epoxyRecyclerView = findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)

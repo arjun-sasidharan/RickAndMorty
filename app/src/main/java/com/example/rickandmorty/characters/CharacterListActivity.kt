@@ -1,9 +1,12 @@
 package com.example.rickandmorty.characters
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
+import com.example.rickandmorty.Constants
+import com.example.rickandmorty.MainActivity
 import com.example.rickandmorty.R
 
 class CharacterListActivity: AppCompatActivity() {
@@ -12,7 +15,7 @@ class CharacterListActivity: AppCompatActivity() {
         ViewModelProvider(this).get(CharactersViewModel::class.java)
     }
 
-    private val epoxyController = CharacterListPagingEpoxyController()
+    private val epoxyController = CharacterListPagingEpoxyController(::onCharacterSelected)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,4 +29,11 @@ class CharacterListActivity: AppCompatActivity() {
         findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView).setController(epoxyController)
 
     }
+
+    private fun onCharacterSelected(characterId: Int) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(Constants.INTENT_EXTRA_CHARACTER_ID, characterId)
+        startActivity(intent)
+    }
+
 }
