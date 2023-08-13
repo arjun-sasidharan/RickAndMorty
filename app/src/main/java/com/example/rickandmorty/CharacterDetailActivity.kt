@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
 
-class MainActivity : AppCompatActivity() {
+class CharacterDetailActivity : AppCompatActivity() {
 
     private val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_character_detail)
 
         viewModel.characterByIdLiveData.observe(this) { character ->
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
             if (character == null) {
                 Toast.makeText(
-                    this@MainActivity,
+                    this@CharacterDetailActivity,
                     "Unsuccessful network call",
                     Toast.LENGTH_SHORT
                 ).show()
