@@ -54,8 +54,8 @@ dependencies {
 
     // Networking
     implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
-    debugImplementation ("com.github.chuckerteam.chucker:library:3.4.0")
-    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.4.0")
+    debugImplementation ("com.github.chuckerteam.chucker:library:3.5.2")
+    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
