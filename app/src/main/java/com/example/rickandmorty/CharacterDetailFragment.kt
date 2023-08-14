@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.airbnb.epoxy.EpoxyRecyclerView
 
 class CharacterDetailFragment : Fragment() {
@@ -16,6 +17,8 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private val epoxyController = CharacterDetailsEpoxyController()
+
+    private val safeArgs: CharacterDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +45,7 @@ class CharacterDetailFragment : Fragment() {
                 return@observe
             }
         }
-//        viewModel.refreshCharacter(intent.getIntExtra(Constants.INTENT_EXTRA_CHARACTER_ID, 1))
+        viewModel.refreshCharacter(characterId = safeArgs.charactedId)
 
         val epoxyRecyclerView = view.findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)

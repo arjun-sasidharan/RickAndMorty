@@ -30,7 +30,7 @@ class CharacterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // connecting page list live data with epoxy controller to show in the UI
-        viewModel.charactersPagedListLiveData.observe(viewLifecycleOwner) {pagedList ->
+        viewModel.charactersPagedListLiveData.observe(viewLifecycleOwner) { pagedList ->
             epoxyController.submitList(pagedList)
         }
 
@@ -38,6 +38,8 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun onCharacterSelected(characterId: Int) {
-        findNavController().navigate(R.id.action_characterListFragment_to_characterDetailFragment)
+        val directions = CharacterListFragmentDirections
+            .actionCharacterListFragmentToCharacterDetailFragment(characterId)
+        findNavController().navigate(directions)
     }
 }
