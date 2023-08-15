@@ -28,6 +28,8 @@
         android:name="com.example.rickandmorty.CharacterDetailFragment"
         android:label="fragment_character_detail"
         tools:layout="@layout/fragment_character_detail">
+
+        <deepLink app:uri="https://rickandmorty.com/character/{characterId}"/>
         <argument
             android:name="charactedId"
             android:defaultValue="-1"
