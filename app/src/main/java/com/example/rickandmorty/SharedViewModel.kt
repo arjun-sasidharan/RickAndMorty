@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.models.Character
+import com.example.rickandmorty.network.RickAndMortyCache
 import kotlinx.coroutines.launch
 
-class SharedViewModel: ViewModel() {
+class SharedViewModel : ViewModel() {
 
     private val repository = SharedRepository()
 
@@ -17,12 +18,25 @@ class SharedViewModel: ViewModel() {
     private val _characterByIdLiveData = MutableLiveData<Character?>()
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
 
-    fun refreshCharacter(characterId: Int) {
-            viewModelScope.launch {
-                val response = repository.getCharacterById(characterId)
+    fun fetchCharacter(characterId: Int) {
 
-                _characterByIdLiveData.postValue(response)
+        // Check the cache for character
+        val cachedCharacter = RickAndMortyCache.characterMap[characterId]
+        if (cachedCharacter != null) {
+            _characterByIdLiveData.postValue(cachedCharacter)
+            return
+        }
+
+        // Otherwise, fetch character from api
+        viewModelScope.launch {
+            val response = repository.getCharacterById(characterId)
+            _characterByIdLiveData.postValue(response)
+
+            // Update cache if non null character received
+            response?.let {
+                RickAndMortyCache.characterMap[characterId] = it
             }
+        }
     }
 
 }
