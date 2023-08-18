@@ -1,4 +1,4 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.characters
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.example.rickandmorty.characters.CharacterListPagingEpoxyController
-import com.example.rickandmorty.characters.CharactersViewModel
+import com.example.rickandmorty.R
 
 class CharacterListFragment : Fragment() {
 
@@ -38,8 +37,9 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun onCharacterSelected(characterId: Int) {
-        val directions = CharacterListFragmentDirections
-            .actionCharacterListFragmentToCharacterDetailFragment(characterId)
+        val directions = CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(
+                characterId
+            )
         findNavController().navigate(directions)
     }
 }

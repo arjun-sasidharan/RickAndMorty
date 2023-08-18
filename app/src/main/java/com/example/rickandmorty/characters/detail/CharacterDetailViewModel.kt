@@ -1,15 +1,16 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.characters.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.characters.CharactersRepository
 import com.example.rickandmorty.domain.models.Character
 import kotlinx.coroutines.launch
 
-class SharedViewModel : ViewModel() {
+class CharacterDetailViewModel : ViewModel() {
 
-    private val repository = SharedRepository()
+    private val repository = CharactersRepository()
 
     // region comment: why two mutable live data
     // reason for having mutable live data and regular live data is bcs, we do not want whatever layer is listening
