@@ -10,6 +10,6 @@ class CharactersDataSourceFactory(
 ) : DataSource.Factory<Int, GetCharacterByIdResponse>() {
 
     override fun create(): DataSource<Int, GetCharacterByIdResponse> {
-        return CharacterDataSource(coroutineScope, repository)
+        return CharactersDataSource(coroutineScope, repository)
     }
 }

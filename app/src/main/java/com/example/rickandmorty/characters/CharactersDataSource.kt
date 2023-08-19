@@ -5,7 +5,7 @@ import com.example.rickandmorty.network.response.GetCharacterByIdResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class CharacterDataSource(
+class CharactersDataSource(
     private val coroutineScope: CoroutineScope,
     private val repository: CharactersRepository
 ) : PageKeyedDataSource<Int, GetCharacterByIdResponse>() {

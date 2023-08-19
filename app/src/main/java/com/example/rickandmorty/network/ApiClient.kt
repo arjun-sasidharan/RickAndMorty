@@ -3,6 +3,7 @@ package com.example.rickandmorty.network
 import com.example.rickandmorty.network.response.GetCharacterByIdResponse
 import com.example.rickandmorty.network.response.GetCharacterPageResponse
 import com.example.rickandmorty.network.response.GetEpisodeByIdResponse
+import com.example.rickandmorty.network.response.GetEpisodesPageResponse
 import retrofit2.Response
 import java.lang.Exception
 
@@ -24,6 +25,10 @@ class ApiClient(
 
     suspend fun getEpisodeByRange(episodeRange: String): SimpleResponse<List<GetEpisodeByIdResponse>> {
         return safeApiCall { rickAndMortyService.getEpisodeRange(episodeRange) }
+    }
+
+    suspend fun getEpisodesPage(pageIndex: Int): SimpleResponse<GetEpisodesPageResponse> {
+        return safeApiCall { rickAndMortyService.getEpisodesPage(pageIndex) }
     }
 
 
