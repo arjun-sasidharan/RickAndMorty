@@ -73,11 +73,11 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
     // Epoxy
-    val epoxyVersion = "5.1.3"
+    val epoxyVersion = "5.0.0"
     implementation ("com.airbnb.android:epoxy:$epoxyVersion")
     kapt ("com.airbnb.android:epoxy-processor:$epoxyVersion")
-    implementation ("com.airbnb.android:epoxy-paging:5.0.0")
-    implementation ("com.airbnb.android:epoxy-paging3:5.0.0")
+    implementation ("com.airbnb.android:epoxy-paging:$epoxyVersion")
+    implementation ("com.airbnb.android:epoxy-paging3:$epoxyVersion")
 
     // Pagination
     val pagination_version = "3.2.0"
