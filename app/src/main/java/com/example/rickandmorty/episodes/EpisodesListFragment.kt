@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.FragmentEpisodeListBinding
-import com.example.rickandmorty.domain.models.Episode
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,7 +27,7 @@ class EpisodesListFragment : Fragment(R.layout.fragment_episode_list) {
         val epoxyController = EpisodeListEpoxyController()
 
         lifecycleScope.launch {
-            viewModel.flow.collectLatest { pagingData: PagingData<Episode> ->
+            viewModel.flow.collectLatest { pagingData: PagingData<EpisodeUiModel> ->
                 epoxyController.submitData(pagingData)
             }
         }

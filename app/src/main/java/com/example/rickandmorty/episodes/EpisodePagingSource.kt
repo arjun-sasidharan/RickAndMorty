@@ -3,14 +3,13 @@ package com.example.rickandmorty.episodes
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.rickandmorty.domain.mappers.EpisodeMapper
-import com.example.rickandmorty.domain.models.Episode
 import com.example.rickandmorty.network.NetworkLayer
 
 class EpisodePagingSource(
     private val repository: EpisodeRepository
-) : PagingSource<Int, Episode>() {
+) : PagingSource<Int, EpisodeUiModel>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, EpisodeUiModel> {
         val pageNumber = params.key ?: 1
         val previousKey = if (pageNumber == 1) null else pageNumber - 1
 
@@ -20,13 +19,15 @@ class EpisodePagingSource(
         }
 
         return LoadResult.Page(
-            data = pageRequest.body.results.map { EpisodeMapper.buildFrom(it) },
+            data = pageRequest.body.results.map { response ->
+                EpisodeUiModel.Item(EpisodeMapper.buildFrom(response))
+            },
             prevKey = previousKey,
             nextKey = getPageIndexFromNext(pageRequest.body.info.next)
         )
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, EpisodeUiModel>): Int? {
         // Try to find the page key of the closest page to anchorPosition from
         // either the prevKey or the nextKey; you need to handle nullability
         // here.
