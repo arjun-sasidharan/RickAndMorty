@@ -5,12 +5,12 @@ import com.example.rickandmorty.network.response.GetCharacterPageResponse
 import com.example.rickandmorty.network.response.GetEpisodeByIdResponse
 import com.example.rickandmorty.network.response.GetEpisodesPageResponse
 import retrofit2.Response
-import java.lang.Exception
 
 class ApiClient(
     private val rickAndMortyService: RickAndMortyService
 ) {
 
+    // region Characters
     suspend fun getCharacterById(characterId: Int): SimpleResponse<GetCharacterByIdResponse> {
         return safeApiCall { rickAndMortyService.getCharacterById(characterId) }
     }
@@ -19,6 +19,12 @@ class ApiClient(
         return safeApiCall { rickAndMortyService.getCharactersPage(pageIndex) }
     }
 
+    suspend fun getMultipleCharacters(charactersList: List<String>): SimpleResponse<List<GetCharacterByIdResponse>> {
+        return safeApiCall { rickAndMortyService.getMultipleCharacters(charactersList) }
+    }
+    // endregion Characters
+
+    // region Episodes
     suspend fun getEpisodeById(episodeId: Int): SimpleResponse<GetEpisodeByIdResponse> {
         return safeApiCall { rickAndMortyService.getEpisodeById(episodeId) }
     }
@@ -30,6 +36,7 @@ class ApiClient(
     suspend fun getEpisodesPage(pageIndex: Int): SimpleResponse<GetEpisodesPageResponse> {
         return safeApiCall { rickAndMortyService.getEpisodesPage(pageIndex) }
     }
+    // endregion Episodes
 
 
     // parameterized function
