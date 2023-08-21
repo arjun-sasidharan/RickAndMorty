@@ -9,7 +9,9 @@ import com.example.rickandmorty.domain.models.Episode
 import com.example.rickandmorty.epoxy.ViewBindingKotlinModel
 
 
-class EpisodeListEpoxyController : PagingDataEpoxyController<EpisodeUiModel>() {
+class EpisodeListEpoxyController(
+    private val onClick: (episodeId: Int) -> Unit
+) : PagingDataEpoxyController<EpisodeUiModel>() {
 
     override fun buildItemModel(currentPosition: Int, item: EpisodeUiModel?): EpoxyModel<*> {
         return when (item!!) {
@@ -17,9 +19,7 @@ class EpisodeListEpoxyController : PagingDataEpoxyController<EpisodeUiModel>() {
                 val episode = (item as EpisodeUiModel.Item).episode
                 EpisodeListItemEpoxyModel(
                     episode = episode,
-                    onClick = { episodeId ->
-                        // todo
-                    }
+                    onClick = onClick
                 ).id("episode_${episode.id}")
             }
 
@@ -48,7 +48,7 @@ class EpisodeListEpoxyController : PagingDataEpoxyController<EpisodeUiModel>() {
 
     data class EpisodeListTitleEpoxyModel(
         val title: String
-    ): ViewBindingKotlinModel<ModelEpisodeListTitleBinding>(R.layout.model_episode_list_title) {
+    ) : ViewBindingKotlinModel<ModelEpisodeListTitleBinding>(R.layout.model_episode_list_title) {
 
         override fun ModelEpisodeListTitleBinding.bind() {
             textView.text = title

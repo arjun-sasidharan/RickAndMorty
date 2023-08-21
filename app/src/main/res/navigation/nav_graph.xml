@@ -15,8 +15,8 @@
             app:destination="@id/characterDetailFragment"
             app:enterAnim="@anim/slide_in_from_right"
             app:exitAnim="@anim/slide_out_to_left"
-            app:popExitAnim="@anim/slide_out_to_right"
-            app:popEnterAnim="@anim/slide_in_from_left">
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_to_right">
             <argument
                 android:name="charactedId"
                 app:argType="integer" />
@@ -30,7 +30,7 @@
         android:label="Character Details"
         tools:layout="@layout/fragment_character_detail">
 
-        <deepLink app:uri="https://rickandmorty.com/character/{characterId}"/>
+        <deepLink app:uri="https://rickandmorty.com/character/{characterId}" />
         <argument
             android:name="charactedId"
             android:defaultValue="-1"
@@ -43,17 +43,26 @@
         android:name="com.example.rickandmorty.episodes.EpisodesListFragment"
         android:label="Rick and Morty Episodes"
         tools:layout="@layout/fragment_episode_list">
-<!--        <action-->
-<!--            android:id="@+id/action_characterListFragment_to_characterDetailFragment"-->
-<!--            app:destination="@id/characterDetailFragment"-->
-<!--            app:enterAnim="@anim/slide_in_from_right"-->
-<!--            app:exitAnim="@anim/slide_out_to_left"-->
-<!--            app:popExitAnim="@anim/slide_out_to_right"-->
-<!--            app:popEnterAnim="@anim/slide_in_from_left">-->
-<!--            <argument-->
-<!--                android:name="charactedId"-->
-<!--                app:argType="integer" />-->
-
-<!--        </action>-->
+        <action
+            android:id="@+id/action_episodeListFragment_to_episodeDetailBottomSheetFragment"
+            app:destination="@id/episodeDetailBottomSheetFragment">
+            <argument
+                android:name="episodeId"
+                app:argType="integer" />
+        </action>
     </fragment>
+
+    <dialog
+        android:id="@+id/episodeDetailBottomSheetFragment"
+        android:name="com.example.rickandmorty.episodes.detail.EpisodeDetailBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/fragment_episode_detail">
+
+        <deepLink app:uri="https://rickandmorty.com/episode/{episodeId}" />
+        <argument
+            android:name="episodeId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </dialog>
 </navigation>
