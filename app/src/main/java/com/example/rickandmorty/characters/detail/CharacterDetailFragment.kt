@@ -1,24 +1,23 @@
 package com.example.rickandmorty.characters.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.airbnb.epoxy.EpoxyRecyclerView
-import com.example.rickandmorty.R
+import com.example.rickandmorty.NavGraphDirections
+import com.example.rickandmorty.databinding.FragmentCharacterDetailBinding
 
 class CharacterDetailFragment : Fragment() {
 
-    private val viewModel: CharacterDetailViewModel by lazy {
-        ViewModelProvider(this).get(CharacterDetailViewModel::class.java)
-    }
+    private var _binding: FragmentCharacterDetailBinding? = null
+    private val binding get() = _binding!!
 
-    private val epoxyController = CharacterDetailsEpoxyController()
-
+    private val viewModel: CharacterDetailViewModel by viewModels()
     private val safeArgs: CharacterDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -26,12 +25,19 @@ class CharacterDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_detail, container, false)
+        _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val epoxyController = CharacterDetailsEpoxyController { episodeClickedId ->
+            val navDirections = NavGraphDirections.actionGlobalToEpisodeDetailBottomSheetFragment(
+                episodeClickedId
+            )
+            findNavController().navigate(navDirections)
+        }
         viewModel.characterByIdLiveData.observe(viewLifecycleOwner) { character ->
 
             // updating data to epoxy controller
@@ -46,9 +52,14 @@ class CharacterDetailFragment : Fragment() {
                 return@observe
             }
         }
+
         viewModel.fetchCharacter(characterId = safeArgs.charactedId)
 
-        val epoxyRecyclerView = view.findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
-        epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
+        binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

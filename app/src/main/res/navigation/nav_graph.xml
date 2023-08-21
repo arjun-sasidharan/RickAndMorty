@@ -5,6 +5,15 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/characterListFragment">
 
+    <action
+        android:id="@+id/action_global_to_episodeDetailBottomSheetFragment"
+        app:destination="@id/episodeDetailBottomSheetFragment" >
+        <argument
+            android:name="episodeId"
+            app:argType="integer" />
+    </action>
+
+
     <fragment
         android:id="@+id/characterListFragment"
         android:name="com.example.rickandmorty.characters.CharacterListFragment"
@@ -43,13 +52,6 @@
         android:name="com.example.rickandmorty.episodes.EpisodesListFragment"
         android:label="Rick and Morty Episodes"
         tools:layout="@layout/fragment_episode_list">
-        <action
-            android:id="@+id/action_episodeListFragment_to_episodeDetailBottomSheetFragment"
-            app:destination="@id/episodeDetailBottomSheetFragment">
-            <argument
-                android:name="episodeId"
-                app:argType="integer" />
-        </action>
     </fragment>
 
     <dialog
@@ -63,6 +65,6 @@
             android:name="episodeId"
             android:defaultValue="-1"
             app:argType="integer" />
-
     </dialog>
+
 </navigation>
